@@ -1,67 +1,114 @@
 #!/bin/bash
 
-# HELPER FUNCTIONS - IGNORE
+# HELPER FUNCTIONS
 move_on() {
     echo -n "Press enter to continue..."
-    read answer
+    read -r answer
     echo ""
-    export answer
 }
 
-lesson_3() {
-    echo "The following script will run..."
+display_code() {
+    echo "The following code will be executed:"
+    echo -e "\n\t#!/bin/bash"
+    while read -r line; do
+        echo -e "\t$line"
+    done <<<"$1"
     echo ""
-    echo -e "\t#!/bin/sh"
-    echo -e "\techo \"Inside script: MYWVAR was \$MYVAR\""
-    echo -e "\tMYVAR=\"hi there\""
-    echo -e "\techo \"Inside script: MYVAR is now \$MYVAR\""
 }
-# Lesson 1: Introduction to Variables
 
-# Basic variable assignment
+# Lesson Header
+echo "Lesson: Introduction to Bash Variables"
+move_on
+
+# 1. Basic Variable Assignment
+echo "1. Basic Variable Assignment"
+display_code 'MY_MESSAGE="Hello World"
+echo "Simple variable: $MY_MESSAGE"'
+
 MY_MESSAGE="Hello World"
-echo "1. Simple variable: $MY_MESSAGE"
+echo "   Actual output: $MY_MESSAGE"
+echo "   Explanation: We created a variable MY_MESSAGE and assigned it a string value"
 move_on
 
-# Using read to get user input
-echo -n "2. What's your name? "
+# 2. User Input with Read
+echo "2. Getting User Input with 'read'"
+display_code 'echo -n "What'\''s your name? "
 read MY_NAME
-echo "Hello $MY_NAME - hope you're well!"
+echo "Hello $MY_NAME!"'
+
+echo -n "   What's your name? "
+read MY_NAME
+echo "   Actual output: Hello $MY_NAME!"
+echo "   Explanation: The read command stores user input in a variable"
 move_on
 
-# Variable scope demonstration
-echo "3. Variable Scope Example:"
-lesson_3
+# 3. Variable Scope Demonstration
+echo "3. Understanding Variable Scope"
+echo "   We'll demonstrate how variable exporting affects subprocesses:"
+move_on
+
+display_code 'echo "   Inside script: MYVAR was $MYVAR"
+MYVAR="hi there"
+echo "   Inside script: MYVAR is now $MYVAR"'
+
 # Create temporary script
-echo '#!/bin/sh
+echo '#!/bin/bash
 echo "   Inside script: MYVAR was $MYVAR"
 MYVAR="hi there"
 echo "   Inside script: MYVAR is now $MYVAR"' >temp_script.sh
 chmod +x temp_script.sh
-echo ""
-echo -n "Enter any value for the variable MYVAR: "
+
+echo -n "   Enter any value for MYVAR: "
 read USER_VAR
 MYVAR=$USER_VAR
 echo "   Main shell: MYVAR=$MYVAR"
-echo -n "Press enter to run script without export..."
-read ENTER
-./temp_script.sh
-echo "   Main shell after script: MYVAR=$MYVAR"
+move_on
 
-echo -n "Press enter to run script with export:"
-read ENTER
+echo "   First test: Running script WITHOUT export..."
+echo "   Expected outcome: The script won't see our MYVAR"
+echo -n "   Press enter to run..."
+read -r
+./temp_script.sh
+echo "   Main shell after script: MYVAR=$MYVAR (no change)"
+move_on
+
+echo "   Second test: Running script WITH export..."
+echo "   Expected outcome: The script will see original value but changes won't affect parent"
+echo -n "   Press enter to export and run..."
+read -r
 export MYVAR
 ./temp_script.sh
-echo "   Main shell after script: MYVAR=$MYVAR"
+echo "   Main shell after script: MYVAR=$MYVAR (still unchanged)"
+move_on
 
 # Clean up
 rm temp_script.sh
+echo "   Cleaned up temporary script"
 move_on
 
-# Variable formatting and quoting
-echo "4. Formatting and Quoting:"
-echo -n "Try entering a name with spaces! "
+# 4. Formatting and Quoting
+echo "4. Variable Formatting and Quoting"
+echo "   Proper quoting is essential for handling special characters and spaces"
+display_code 'echo -n "Enter name with spaces: "
+read USER_NAME
+echo "Creating file: ${USER_NAME}_file"
+touch "${USER_NAME}_file"'
+
+echo -n "   Try entering a name with spaces (e.g., 'John Doe'): "
 read USER_NAME
 echo "   Creating file: ${USER_NAME}_file"
 touch "${USER_NAME}_file"
+echo "   File created with contents:"
 ls -l "${USER_NAME}_file"
+echo "   Explanation: Quotes preserve spaces in filenames"
+
+# Clean up user-created file
+rm "${USER_NAME}_file"
+echo "   Cleaned up example file"
+move_on
+
+echo "Lesson complete! You've learned:"
+echo "- Variable assignment"
+echo "- User input handling"
+echo "- Variable scoping"
+echo "- Proper quoting techniques"
