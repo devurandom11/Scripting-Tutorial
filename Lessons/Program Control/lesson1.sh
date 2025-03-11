@@ -2,9 +2,10 @@
 
 # HELPER FUNCTION
 move_on() {
-    echo -n "Press enter to continue..."
-    read -r answer
-    echo ""
+  echo ""
+  echo -n "Press enter to continue..."
+  read -r answer
+  echo ""
 }
 
 echo "Lesson: Introduction to For Loops"
@@ -134,3 +135,4 @@ rm countdown.sh
 move_on
 
 echo "End of for loop demo. You've mastered different loop types!"
+echo ""
