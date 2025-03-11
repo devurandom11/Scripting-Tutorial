@@ -79,7 +79,7 @@ while :; do # FILL: while : or while true
     num=$((RANDOM % 10))
     echo -n "Guess (0-9): "
     read guess
-    if [[ "$guess" = "quit" ]]; then
+    if [ "$guess" = "quit" ]; then
         break
     else
         [ $num -eq "$guess" ] && echo "Correct!" || echo "Wrong! It was $num"
