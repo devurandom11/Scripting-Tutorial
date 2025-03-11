@@ -2,6 +2,7 @@
 
 # HELPER FUNCTIONS
 move_on() {
+    echo ""
     echo -n "Press enter to continue..."
     read -r answer
     echo ""
@@ -112,3 +113,4 @@ echo "- Variable assignment"
 echo "- User input handling"
 echo "- Variable scoping"
 echo "- Proper quoting techniques"
+echo ""
