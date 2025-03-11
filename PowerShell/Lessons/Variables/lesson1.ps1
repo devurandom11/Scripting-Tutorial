@@ -15,7 +15,7 @@ function Display-Code {
 }
 
 # Lesson Header
-Write-Host "Lesson: Introduction to PowerShell Variables"
+Write-Host "Lesson 1: Introduction to PowerShell Variables"
 Move-On
 
 # 1. Basic Variable Assignment
@@ -63,7 +63,7 @@ Move-On
 Write-Host "   First test: Running script WITHOUT export..."
 Write-Host "   Expected outcome: The script won't see our MYVAR"
 Read-Host "   Press enter to run..."
-pwsh temp_script.ps1
+powershell.exe .\temp_script.ps1
 Write-Host "   Main shell after script: MYVAR=$MYVAR (no change)"
 Move-On
 
@@ -71,11 +71,11 @@ Write-Host "   Second test: Running script WITH export..."
 Write-Host "   Expected outcome: The script will see original value but changes won't affect parent"
 Read-Host "   Press enter to export and run..."
 $env:MYVAR = $MYVAR
-pwsh temp_script.ps1
+powershell.exe .\temp_script.ps1
 Write-Host "   Main shell after script: MYVAR=$MYVAR (still unchanged)"
 Move-On
 
-Remove-Item temp_script.ps1
+Remove-Item .\temp_script.ps1
 Write-Host "   Cleaned up temporary script"
 Move-On
 

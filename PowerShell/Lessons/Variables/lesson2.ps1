@@ -20,7 +20,8 @@ Write-Host "   Let's demonstrate with some example arguments..."
 if ($args.Count -eq 0) {
     $scriptArgs = @("apple", "banana", "cherry")
     Write-Host "   No arguments provided. Using default: apple banana cherry"
-} else {
+}
+else {
     $scriptArgs = $args
     Write-Host "   Using provided arguments: $scriptArgs"
 }
@@ -62,15 +63,16 @@ Move-On
 # 3. Exit Status
 Write-Host "3. Understanding Exit Status:"
 Write-Host "   External commands return an exit code (0 = success, non-zero = error)"
-Write-Host "   This example runs 'dir' on a non-existent file and shows its exit code"
+Write-Host "   This example runs 'ls' on a non-existent file and shows its exit code"
 Move-On
-Write-Host "   Running: cmd /c dir /non/existent/file 2>`$null"
-pwsh -Command ls /non/existent/file 2>$null
+Write-Host "   Running: powershell.exe -Command ls /non/existent/file 2>`$null"
+powershell.exe -Command ls /non/existent/file 2>$null
 $status = $LASTEXITCODE
 Write-Host "   dir exit status: $status"
 if ($status -eq 0) {
     Write-Host "   Unexpected success!"
-} else {
+}
+else {
     Write-Host "   Expected error as shown by non-zero status"
 }
 Write-Host "   (Note: 2>`$null hides the error message)"
@@ -86,7 +88,7 @@ Move-On
 
 Write-Host "   Current shell PID: $PID"
 Write-Host "   Starting sleep in background..."
-$process = Start-Process -FilePath "pwsh" -ArgumentList "-Command Start-Sleep 2" -PassThru
+$process = Start-Process -FilePath "powershell.exe" -WindowStyle Hidden -ArgumentList "-Command Start-Sleep 2" -PassThru
 $bg_pid = $process.Id
 Write-Host "   Background process PID: $bg_pid"
 Move-On
