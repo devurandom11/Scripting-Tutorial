@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# ROOT CHECK
+if [ "$EUID" -ne 0 ]
+  then echo "Please run as root"
+  exit
+fi
+
 REPORT_FILE="system_baseline_$(date +%Y%m%d_%H%M%S).txt"
 
 create_report() {
