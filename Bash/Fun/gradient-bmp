@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+. ./lib/bmp || exit
+
+main() {
+	local width=400
+	local height=400
+
+	bmp_header "$width" "$height"
+	local padding=$REPLY
+
+	local r g b
+	for ((y = 0; y < height; y++)); do
+		for ((x = 0; x < width; x++)); do
+			((r = x * 255 / width))
+			((b = y * 255 / height))
+			rgb "$r" 0 "$b"
+
+		done
+		bmp_padding "$padding"
+	done
+}
+
+main "$@"
